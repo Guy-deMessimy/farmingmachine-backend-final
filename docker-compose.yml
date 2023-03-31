@@ -1,0 +1,17 @@
+services:
+  mysql:
+    image: mysql:5.7
+    restart: always
+    env_file:
+        - .env
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_PORT=3306
+    volumes:
+      - mysql:/var/lib/mysql/data
+    expose:
+      - 3307
+    ports:
+      - 3307:3306
+volumes:
+  mysql:
