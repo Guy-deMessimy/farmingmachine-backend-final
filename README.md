@@ -127,3 +127,9 @@ Prisma client permet a Nest JS l'accès et la modification des données en bdd
 ```sh
 prisma client
 ```
+GraphQl playground
+
+```sh
+localhost:3000/graphql
+```
+
