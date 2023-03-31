@@ -132,4 +132,9 @@ GraphQl playground
 ```sh
 localhost:3000/graphql
 ```
+### Linter
+
+```sh
+npm run lint
+```
 
