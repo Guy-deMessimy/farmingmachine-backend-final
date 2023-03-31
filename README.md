@@ -93,3 +93,37 @@ quitter mysql avec `exit` et créer un fichier `.env` pour renseigner la variabl
 ```dosini
 PRISMA_DATABASE_URL=mysql://root:password$@localhost:3306/farmingmachine
 ```
+
+lancer le server sql local 
+
+```sh
+docker-compose up -d
+```
+
+lancer ensuite la migration Prisma
+
+```sh
+npx prisma migrate dev --name init
+```
+
+en cas d'ajout et/ou modifications du shema
+
+```sh
+npx npm run migrate
+```
+
+### Prisma studio
+
+Pour lancer Prisma studio
+
+```sh
+npx prisma studio
+```
+
+Une session sera lancée sur [localhost:5555](http://localhost:5555/)
+
+Prisma client permet a Nest JS l'accès et la modification des données en bdd
+
+```sh
+prisma client
+```
