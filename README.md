@@ -71,3 +71,25 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+# Farming Machine server 🫐
+
+## Installation
+
+Cloner le repo et lancer un `npm install` pour récupérer les dépendances. Se diriger ensuite vers le terminal et accéder à l'interface mysql
+
+```sh
+mysql -u root -p
+```
+
+puis créer la base pour que Prisma puisse y accéder
+
+```sql
+CREATE DATABASE IF NOT EXISTS farmingmachine;
+```
+
+quitter mysql avec `exit` et créer un fichier `.env` pour renseigner la variable pour la connexion a la db. Voir .env.example
+
+```dosini
+PRISMA_DATABASE_URL=mysql://root:password$@localhost:3306/farmingmachine
+```
