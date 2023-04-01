@@ -106,7 +106,7 @@ lancer ensuite la migration Prisma
 npx prisma migrate dev --name init
 ```
 
-### Tools
+## Tools
 
 Pour lancer Prisma studio
 
@@ -123,16 +123,16 @@ GraphQl playground
 localhost:3000/graphql
 ```
 
-Une session sera lancée sur [localhost:3000](http://localhost:3000/graphql)
+Une session sera lancée sur [localhost:3000/graphql](http://localhost:3000/graphql)
 
 Generate OpenAPI documentation 
 
 ```sh
 localhost:3000/api
 ```
-Une session sera lancée sur [localhost:3000](http://localhost:3000/api)
+Une session sera lancée sur [localhost:3000/api](http://localhost:3000/api)
 
-### Technical project structure
+## Technical project structure
 
 Prisma ORM est le pont entre la bdd et les services du backend
 
