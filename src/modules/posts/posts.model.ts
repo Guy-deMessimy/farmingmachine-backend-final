@@ -2,7 +2,7 @@ import { Field, GraphQLISODateTime, Int, ObjectType } from '@nestjs/graphql';
 import { Post as PostDB } from '@prisma/client';
 
 @ObjectType({ description: 'Post model' })
-export class Tweet {
+export class Post {
   @Field(() => Int)
   id: PostDB[`id`];
 
