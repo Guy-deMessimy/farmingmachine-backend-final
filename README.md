@@ -164,26 +164,25 @@ Prisma client permet a Nest JS l'accès et la modification des données en bdd
 prisma client
 ```
 
-Data access layer : mutation de la bdd
+Data access layer : couche mutation de la bdd
 
 ```sh
 couche repository
 ```
 
-Data access layer : logique métier
+Data access layer : couche logique métier
 
 ```sh
 couche service
 ```
 
-Data access layer : donner au client l'accès à l'api (equivalent du controller en REST api)
+Data access layer : couche accès client à l'api (equivalent du controller en REST api)
 
 ```sh
 couche resolver
 ```
 
-Data access layer : definir le shéma GraphQl de retour au requêtes
-
+Data access layer : objet GraphQl pour typer la reponse server
 ```sh
 resolver model
 ```
@@ -191,7 +190,7 @@ resolver model
 Data access layer : definir le type des données entrantes
 
 ```sh
-dto
+dto and entity
 ```
 
 ## Linter
