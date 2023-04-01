@@ -181,7 +181,11 @@ Data access layer : definir le shéma GraphQl de retour au requêtes
 resolver model
 ```
 
+Data access layer : definir le type des données entrantes
 
+```sh
+dto
+```
 
 ### Linter
 
