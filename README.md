@@ -112,7 +112,7 @@ en cas d'ajout et/ou modifications du shema
 npx npm run migrate
 ```
 
-### Prisma studio
+### Tools
 
 Pour lancer Prisma studio
 
@@ -122,19 +122,99 @@ npx prisma studio
 
 Une session sera lancée sur [localhost:5555](http://localhost:5555/)
 
-Prisma client permet a Nest JS l'accès et la modification des données en bdd
 
-```sh
-prisma client
-```
 GraphQl playground
 
 ```sh
 localhost:3000/graphql
 ```
+
+### Technical project structure
+
+Prisma ORM est le pont entre la bdd et les services du backend
+
+```sh
+npx prisma init
+```
+
+Le shema Bdd Prisma est definit dans le dossier Prisma
+
+```sh
+schema.prisma
+```
+
+Mapper le modèle Prisma définit dans la bdd (execute la 1ere migration)
+
+```sh
+npx prisma migrate dev --name init
+```
+
+en cas d'ajout et/ou modifications du shema le script ci-dessous est à jouer
+
+```sh
+npx npm run migrate
+```
+
+Prisma client permet a Nest JS l'accès et la modification des données en bdd
+
+```sh
+prisma client
+```
+
+Data access layer : mutation de la bdd
+
+```sh
+couche repository
+```
+
+Data access layer : logique métier
+
+```sh
+couche service
+```
+
+Data access layer : donner au client l'accès à l'api (equivalent du controller en REST api)
+
+```sh
+couche resolver
+```
+
+Data access layer : definir le shéma GraphQl de retour au requêtes
+
+```sh
+resolver model
+```
+
+
+
 ### Linter
 
 ```sh
 npm run lint
 ```
 
+### Nest Js CLI
+
+Create service
+
+```sh
+nest g service ${name}
+```
+
+Generate a new controller
+
+```sh
+nest g resolver ${name}
+```
+
+Generate a new module
+
+```sh
+nest g module ${name}
+```
+
+Defines the interface for input or/and output within our system
+
+```sh
+nest g class ${name] 'user/dto/create-user.dto' --no-spec
+```
