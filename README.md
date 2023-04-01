@@ -125,6 +125,13 @@ localhost:3000/graphql
 
 Une session sera lancée sur [localhost:3000](http://localhost:3000/graphql)
 
+Generate OpenAPI documentation 
+
+```sh
+localhost:3000/api
+```
+Une session sera lancée sur [localhost:3000](http://localhost:3000/api)
+
 ### Technical project structure
 
 Prisma ORM est le pont entre la bdd et les services du backend
