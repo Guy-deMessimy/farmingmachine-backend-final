@@ -106,12 +106,6 @@ lancer ensuite la migration Prisma
 npx prisma migrate dev --name init
 ```
 
-en cas d'ajout et/ou modifications du shema
-
-```sh
-npx npm run migrate
-```
-
 ### Tools
 
 Pour lancer Prisma studio
@@ -128,6 +122,8 @@ GraphQl playground
 ```sh
 localhost:3000/graphql
 ```
+
+Une session sera lancée sur [localhost:3000](http://localhost:3000/graphql)
 
 ### Technical project structure
 
@@ -152,7 +148,7 @@ npx prisma migrate dev --name init
 en cas d'ajout et/ou modifications du shema le script ci-dessous est à jouer
 
 ```sh
-npx npm run migrate
+npm run migrate
 ```
 
 Prisma client permet a Nest JS l'accès et la modification des données en bdd
