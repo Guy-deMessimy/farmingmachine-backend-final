@@ -1,12 +1,4 @@
-import { Query, Resolver } from '@nestjs/graphql';
-import { Post } from 'src/modules/posts/posts.model';
-import { PostsService } from 'src/modules/posts/posts.service';
+import { Resolver } from '@nestjs/graphql';
 
 @Resolver()
-export class ApiResolver {
-  constructor(private readonly postsService: PostsService) {}
-  @Query(() => [Post])
-  async getPosts() {
-    return this.postsService.getPosts();
-  }
-}
+export class ApiResolver {}

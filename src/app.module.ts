@@ -11,7 +11,6 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
       driver: ApolloDriver,
       autoSchemaFile: true,
     }),
-    ApiModule,
     PostsModule,
     PrismaModule,
   ],
