@@ -3,9 +3,10 @@ import { PrismaModule } from 'src/prisma/prisma.module';
 import { PostsRepository } from './posts.repository';
 import { PostsService } from './posts.service';
 import { PostsResolver } from './posts.resolver';
+import { PubSubModule } from '../pub-sub/pub-sub.module';
 
 @Module({
-  imports: [PrismaModule],
+  imports: [PrismaModule, PubSubModule],
   providers: [PostsRepository, PostsService, PostsResolver],
   exports: [PostsService],
 })

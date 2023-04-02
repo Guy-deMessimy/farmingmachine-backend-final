@@ -1,11 +1,21 @@
-import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
+import {
+  Args,
+  Int,
+  Mutation,
+  Query,
+  Resolver,
+  Subscription,
+} from '@nestjs/graphql';
+import { PubSub } from 'graphql-subscriptions';
 import { Post } from 'src/modules/posts/posts.model';
 import { PostsService } from 'src/modules/posts/posts.service';
-import { CreatePostInput } from './dto/create-post.input';
 
 @Resolver()
 export class PostsResolver {
-  constructor(private readonly postsService: PostsService) {}
+  constructor(
+    private readonly postsService: PostsService,
+    private readonly pubSub: PubSub,
+  ) {}
 
   @Query(() => [Post])
   async getPosts() {
@@ -17,8 +27,12 @@ export class PostsResolver {
     @Args({ name: `content`, type: () => String }) content: string,
     @Args({ name: `title`, type: () => String }) title: string,
     @Args({ name: `authorId`, type: () => Int }) authorId: number,
-    // @Args({ name: `createPostInput` }) createPostInput: CreatePostInput,
   ) {
     return this.postsService.createPost({ content, title, authorId });
+  }
+
+  @Subscription(() => Post)
+  postAdded() {
+    return this.pubSub.asyncIterator('postAdded');
   }
 }
