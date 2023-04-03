@@ -117,7 +117,7 @@ npx prisma studio
 Une session sera lancée sur [localhost:5555](http://localhost:5555/)
 
 
-GraphQl playground
+Apollo sandbox playground
 
 ```sh
 localhost:3000/graphql
