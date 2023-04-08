@@ -5,7 +5,12 @@ import { PostInput } from './entities/post.entity';
 
 @Injectable()
 export class PostsRepository {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) {
+    prisma.$on<any>('query', (event: Prisma.QueryEvent) => {
+      console.log('Query: ' + event.query);
+      console.log('Duration: ' + event.duration + 'ms');
+    });
+  }
 
   async createPost(params: { data: Prisma.PostCreateInput }): Promise<Post> {
     const { data } = params;
