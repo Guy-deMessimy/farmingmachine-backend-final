@@ -7,8 +7,8 @@ import {
   Subscription,
 } from '@nestjs/graphql';
 import { PubSub } from 'graphql-subscriptions';
-import { Post } from 'src/modules/posts/posts.model';
-import { PostsService } from 'src/modules/posts/posts.service';
+import { Post } from '../../modules/posts/posts.model';
+import { PostsService } from '../../modules/posts/posts.service';
 
 @Resolver()
 export class PostsResolver {
