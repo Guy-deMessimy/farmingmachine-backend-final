@@ -11,7 +11,7 @@ export class PostsService {
     private readonly pubSub: PubSub,
     private readonly configService: ConfigService,
   ) {
-    const databaseHost = this.configService.get<string>('DATABASE_HOST');
+    const databaseHost = this.configService.get('database.host', 'localhost');
     console.log(databaseHost);
   }
 

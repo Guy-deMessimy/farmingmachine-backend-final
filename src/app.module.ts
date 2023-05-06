@@ -8,10 +8,13 @@ import { PubSubModule } from './modules/pub-sub/pub-sub.module';
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
 import { CategoriesModule } from './modules/categories/categories.module';
 import { ConfigModule } from '@nestjs/config';
+import appConfig from './config/app.config';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      load: [appConfig],
+    }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
