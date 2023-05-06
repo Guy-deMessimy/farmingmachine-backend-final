@@ -6,7 +6,7 @@ import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   console.log(process.env.DATABASE_URL);
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { cors: true });
   app.useGlobalPipes(
     new ValidationPipe({
       // have error message in case of incorrect request
