@@ -4,9 +4,10 @@ import { PostsRepository } from './posts.repository';
 import { PostsService } from './posts.service';
 import { PostsResolver } from './posts.resolver';
 import { PubSubModule } from '../pub-sub/pub-sub.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [PrismaModule, PubSubModule],
+  imports: [PrismaModule, PubSubModule, ConfigModule],
   providers: [PostsRepository, PostsService, PostsResolver],
   exports: [PostsService],
 })
