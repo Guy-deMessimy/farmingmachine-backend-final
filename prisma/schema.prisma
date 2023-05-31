@@ -32,21 +32,21 @@ model Customer {
 }
 
 model Post {
-  id        Int      @default(autoincrement()) @id
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  title     String
-  content   String?
-  published Boolean? @default(false)
-  author    User?    @relation(fields: [authorId], references: [id])
-  authorId  Int?
+  id          Int      @default(autoincrement()) @id
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  title       String
+  content     String?
+  published   Boolean? @default(false)
+  author      User?    @relation(fields: [authorId], references: [id])
+  authorId    Int?
 }
 
 model Category {
   id          Int      @default(autoincrement()) @id
   title       String
   description String?   @db.LongText
-  services Service[] 
+  services    Service[] 
 }
 
 model Service {
@@ -55,6 +55,15 @@ model Service {
   description String?   @db.LongText
   Category    Category  @relation(fields: [categoryId], references: [id])
   categoryId  Int       @unique
+}
+
+model File {
+  id          Int      @default(autoincrement()) @id
+  fileName    String
+  fileUrl     String
+  key         String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 
