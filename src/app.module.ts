@@ -23,7 +23,6 @@ import { UploaderModule } from './modules/uploader/uploader.module';
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       playground: false,
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
-
       installSubscriptionHandlers: true,
     }),
     PostsModule,

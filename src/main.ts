@@ -3,10 +3,12 @@ import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { PrismaService } from './prisma/prisma.service';
 import { ValidationPipe } from '@nestjs/common';
+import { graphqlUploadExpress } from 'graphql-upload';
 
 async function bootstrap() {
-  console.log(process.env.DATABASE_URL);
+  console.log(`env URL ${process.env.DATABASE_URL}`);
   const app = await NestFactory.create(AppModule, { cors: true });
+  app.use(graphqlUploadExpress({ maxFileSize: 50000000, maxFiles: 10 }));
   app.useGlobalPipes(
     new ValidationPipe({
       // have error message in case of incorrect request
