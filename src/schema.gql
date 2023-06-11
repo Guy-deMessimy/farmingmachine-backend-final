@@ -25,6 +25,16 @@ type Category {
   description: String!
 }
 
+"""File model"""
+type UploadedFile {
+  id: Int!
+  fileName: String!
+  fileUrl: String!
+  key: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
 type Query {
   getPosts: [Post!]!
   getCategories: [Category!]!
@@ -32,7 +42,11 @@ type Query {
 
 type Mutation {
   createPost(content: String!, title: String!, authorId: Int!): Post!
+  uploadFile(file: Upload!): UploadedFile!
 }
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
 
 type Subscription {
   postAdded: Post!
