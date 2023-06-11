@@ -1,10 +1,11 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
-import { UploaderRepository } from './repository/uploader.repository';
 import { PubSub } from 'graphql-subscriptions';
 import { ConfigService } from '@nestjs/config';
 import { v4 as uuid } from 'uuid';
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { Readable } from 'stream';
+
+import { UploaderRepository } from './repository/uploader.repository';
 import { UploadFileInput } from './dto/uploaded-file-input';
 
 @Injectable()
@@ -55,15 +56,11 @@ export class UploaderService {
     try {
       const response = await client.send(command);
       if (response.$metadata.httpStatusCode === HttpStatus.OK) {
-        console.log('response', response);
-
         const uploadedFileUrl = `https://${this.configService.get(
           'AWS_BUCKET_NAME',
         )}.s3.${this.configService.get('AWS_REGION')}.amazonaws.com/${
           uploadParams.Key
         }}`;
-
-        console.log('uploadedFileUrl', uploadedFileUrl);
 
         const fileStorageInDB = {
           fileName: uploadFileInput.filename,
@@ -71,12 +68,10 @@ export class UploaderService {
           key: uploadParams.Key,
         };
 
-        console.log('fileStorageInDB', fileStorageInDB);
-        // const filestored = await this.repository.uploadFile({
-        //   data: fileStorageInDB,
-        // });
-
-        // return filestored;
+        const filestored = await this.repository.uploadFile({
+          data: fileStorageInDB,
+        });
+        return filestored;
       } else {
         throw new Error('File not saved to S3');
       }
