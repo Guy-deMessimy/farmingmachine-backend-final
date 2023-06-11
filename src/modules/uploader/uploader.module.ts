@@ -5,9 +5,10 @@ import { ConfigModule } from '@nestjs/config';
 import { UploaderRepository } from './repository/uploader.repository';
 import { UploaderService } from './uploader.service';
 import { UploaderResolver } from './uploader.resolver';
+import { S3Module } from 'src/s3/s3.module';
 
 @Module({
-  imports: [PrismaModule, PubSubModule, ConfigModule],
+  imports: [PrismaModule, PubSubModule, ConfigModule, S3Module],
   providers: [UploaderRepository, UploaderService, UploaderResolver],
   exports: [UploaderService],
 })
