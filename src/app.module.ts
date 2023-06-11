@@ -12,6 +12,7 @@ import { PrismaModule } from 'src/prisma/prisma.module';
 import { PubSubModule } from './modules/pub-sub/pub-sub.module';
 import { CategoriesModule } from './modules/categories/categories.module';
 import { UploaderModule } from './modules/uploader/uploader.module';
+import { S3Module } from './s3/s3.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { UploaderModule } from './modules/uploader/uploader.module';
     PubSubModule,
     CategoriesModule,
     UploaderModule,
+    S3Module,
   ],
   controllers: [],
   providers: [],
