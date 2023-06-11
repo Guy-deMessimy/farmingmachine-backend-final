@@ -1,11 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable } from '@nestjs/common';
 import { UploaderRepository } from './repository/uploader.repository';
 import { PubSub } from 'graphql-subscriptions';
 import { ConfigService } from '@nestjs/config';
-// import { FileUploadDto } from './dto/upload-file-input';
 import { v4 as uuid } from 'uuid';
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { Readable } from 'stream';
+import { UploadFileInput } from './dto/uploaded-file-input';
 
 @Injectable()
 export class UploaderService {
@@ -30,7 +30,7 @@ export class UploaderService {
     );
   }
 
-  async uploadFile(uploadFileInput: any) {
+  async uploadFile(uploadFileInput: UploadFileInput) {
     const { createReadStream, filename, mimetype } = uploadFileInput;
     const client = new S3Client({
       region: this.configService.get('AWS_REGION'),
@@ -41,10 +41,7 @@ export class UploaderService {
     });
 
     const buffer = await this.streamToBuffer(createReadStream());
-    console.log('buffer', buffer.length);
-
     const fileStream = await createReadStream();
-    console.log('fileStream', fileStream);
 
     const uploadParams = {
       Key: `${uuid()}-${filename}`,
@@ -55,21 +52,36 @@ export class UploaderService {
     };
 
     const command = new PutObjectCommand(uploadParams);
-    console.log('command', command);
-    const response = await client.send(command);
+    try {
+      const response = await client.send(command);
+      if (response.$metadata.httpStatusCode === HttpStatus.OK) {
+        console.log('response', response);
 
-    console.log('response', response);
+        const uploadedFileUrl = `https://${this.configService.get(
+          'AWS_BUCKET_NAME',
+        )}.s3.${this.configService.get('AWS_REGION')}.amazonaws.com/${
+          uploadParams.Key
+        }}`;
 
-    // const fileStorageInDB = {
-    //   fileName: uploadFileInput.filename,
-    //   fileUrl: uploadResult.Location,
-    //   key: uploadResult.Key,
-    // };
+        console.log('uploadedFileUrl', uploadedFileUrl);
 
-    // const filestored = await this.repository.uploadFile({
-    //   data: fileStorageInDB,
-    // });
+        const fileStorageInDB = {
+          fileName: uploadFileInput.filename,
+          fileUrl: uploadedFileUrl,
+          key: uploadParams.Key,
+        };
 
-    // return filestored;
+        console.log('fileStorageInDB', fileStorageInDB);
+        // const filestored = await this.repository.uploadFile({
+        //   data: fileStorageInDB,
+        // });
+
+        // return filestored;
+      } else {
+        throw new Error('File not saved to S3');
+      }
+    } catch (error) {
+      throw error;
+    }
   }
 }
