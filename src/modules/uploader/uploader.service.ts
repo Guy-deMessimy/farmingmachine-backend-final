@@ -17,9 +17,9 @@ export class UploaderService {
     console.log(databaseHost);
   }
 
-  async uploadFile(uploadFileInput: UploadFileInput) {
+  async uploadFile(uploadFileInput: UploadFileInput, size: number) {
     try {
-      const result = await this.S3Service.uploadFile(uploadFileInput);
+      const result = await this.S3Service.uploadFile(uploadFileInput, size);
       if (result) {
         const fileStorageInDB = {
           fileName: uploadFileInput.filename,

@@ -42,7 +42,7 @@ type Query {
 
 type Mutation {
   createPost(content: String!, title: String!, authorId: Int!): Post!
-  uploadFile(file: Upload!): UploadedFile!
+  uploadFile(file: Upload!, size: Int!): UploadedFile!
 }
 
 """The `Upload` scalar type represents a file upload."""

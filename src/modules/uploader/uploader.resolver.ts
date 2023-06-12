@@ -1,4 +1,4 @@
-import { Args, Mutation, Resolver } from '@nestjs/graphql';
+import { Args, Int, Mutation, Resolver } from '@nestjs/graphql';
 import { UploaderService } from './uploader.service';
 import { UploadedFile } from '../../modules/uploader/model/files.model';
 import { GraphQLUpload, FileUpload } from 'graphql-upload';
@@ -10,10 +10,10 @@ export class UploaderResolver {
 
   @Mutation(() => UploadedFile, { name: 'uploadFile' })
   async uploadFile(
-    @Args({ name: 'file', type: () => GraphQLUpload })
-    file: FileUpload,
+    @Args({ name: 'file', type: () => GraphQLUpload }) file: FileUpload,
+    @Args({ name: `size`, type: () => Int }) size: number,
   ): Promise<File> {
-    const uploadedFile = this.uploaderService.uploadFile(file);
+    const uploadedFile = this.uploaderService.uploadFile(file, size);
     return uploadedFile;
   }
 }

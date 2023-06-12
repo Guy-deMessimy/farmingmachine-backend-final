@@ -2,7 +2,6 @@ import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { UploadFileInput } from 'src/modules/uploader/dto/uploaded-file-input';
-import { Readable } from 'stream';
 import { v4 as uuid } from 'uuid';
 
 @Injectable()
@@ -12,19 +11,7 @@ export class S3Service {
     console.log(databaseHost);
   }
 
-  async streamToBuffer(stream: Readable): Promise<Buffer> {
-    const buffer: Uint8Array[] = [];
-
-    return new Promise(async (resolve, reject) =>
-      // listen for stream events and create file Buffer
-      stream
-        .on('error', (error) => reject(error))
-        .on('data', (data) => buffer.push(data))
-        .on('end', () => resolve(Buffer.concat(buffer))),
-    );
-  }
-
-  async uploadFile(uploadFileInput: UploadFileInput) {
+  async uploadFile(uploadFileInput: UploadFileInput, size: number) {
     const { createReadStream, filename, mimetype } = uploadFileInput;
     const client = new S3Client({
       region: this.configService.get('AWS_REGION'),
@@ -34,7 +21,6 @@ export class S3Service {
       },
     });
 
-    const buffer = await this.streamToBuffer(createReadStream());
     const fileStream = await createReadStream();
     const key = `${uuid()}-${filename}`;
 
@@ -43,7 +29,7 @@ export class S3Service {
       Bucket: this.configService.get('AWS_BUCKET_NAME'),
       Body: fileStream,
       ContentType: mimetype,
-      ContentLength: buffer.length,
+      ContentLength: size,
     };
 
     const command = new PutObjectCommand(uploadParams);
