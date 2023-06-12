@@ -11,15 +11,19 @@ export class S3Service {
     console.log(databaseHost);
   }
 
-  async uploadFile(uploadFileInput: UploadFileInput, size: number) {
-    const { createReadStream, filename, mimetype } = uploadFileInput;
-    const client = new S3Client({
+  async s3Client() {
+    return new S3Client({
       region: this.configService.get('AWS_REGION'),
       credentials: {
         accessKeyId: this.configService.get('AWS_ACCESS_KEY_ID') || '',
         secretAccessKey: this.configService.get('AWS_SECRET_ACCESS_KEY') || '',
       },
     });
+  }
+
+  async uploadFile(uploadFileInput: UploadFileInput, size: number) {
+    const { createReadStream, filename, mimetype } = uploadFileInput;
+    const s3Client = await this.s3Client();
 
     const fileStream = await createReadStream();
     const key = `${uuid()}-${filename}`;
@@ -34,7 +38,7 @@ export class S3Service {
 
     const command = new PutObjectCommand(uploadParams);
     try {
-      const response = await client.send(command);
+      const response = await s3Client.send(command);
       if (response.$metadata.httpStatusCode === HttpStatus.OK) {
         const uploadedFileUrl = `https://${this.configService.get(
           'AWS_BUCKET_NAME',
