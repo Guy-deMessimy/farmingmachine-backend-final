@@ -18,13 +18,6 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
-"""Category model"""
-type Category {
-  id: Int!
-  title: String!
-  description: String!
-}
-
 """File model"""
 type UploadedFile {
   id: Int!
@@ -33,6 +26,14 @@ type UploadedFile {
   key: String!
   createdAt: DateTime!
   updatedAt: DateTime!
+}
+
+"""Category model"""
+type Category {
+  id: Int!
+  title: String!
+  description: String!
+  file: UploadedFile!
 }
 
 type Query {
