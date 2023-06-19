@@ -40,30 +40,35 @@ model Post {
   published   Boolean? @default(false)
   author      User?    @relation(fields: [authorId], references: [id])
   authorId    Int?
+  @@index([title, content])
 }
 
 model Category {
   id          Int      @default(autoincrement()) @id
   title       String
-  description String?   @db.LongText
+  description String? @db.LongText
   services    Service[] 
+  file        File?   @relation(fields: [fileId], references: [id])
+  fileId      Int     @unique
 }
 
 model Service {
   id          Int      @default(autoincrement()) @id
   title       String
   description String?   @db.LongText
-  Category    Category  @relation(fields: [categoryId], references: [id])
+  category    Category  @relation(fields: [categoryId], references: [id])
   categoryId  Int       @unique
 }
 
 model File {
   id          Int      @default(autoincrement()) @id
   fileName    String
-  fileUrl     String
+  fileUrl     String   @db.LongText
   key         String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  category    Category?
+  @@index([fileName, key])
 }
 
 
