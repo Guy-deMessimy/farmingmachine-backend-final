@@ -3,7 +3,7 @@ import { PubSub } from 'graphql-subscriptions';
 import { ConfigService } from '@nestjs/config';
 import { UploaderRepository } from './repository/uploader.repository';
 import { UploadFileInput } from './dto/uploaded-file-input';
-import { S3Service } from 'src/s3/s3.service';
+import { S3Service } from '../../s3/s3.service';
 
 @Injectable()
 export class UploaderService {
@@ -20,10 +20,12 @@ export class UploaderService {
   async uploadFile(uploadFileInput: UploadFileInput, size: number) {
     try {
       const result = await this.S3Service.uploadFile(uploadFileInput, size);
-      if (result) {
+      const signedUrl = await this.S3Service.getSignedFileUrl(result.key);
+
+      if (result && signedUrl) {
         const fileStorageInDB = {
           fileName: uploadFileInput.filename,
-          fileUrl: result.uploadedFileUrl,
+          fileUrl: signedUrl,
           key: result.key,
         };
         const filestored = await this.repository.uploadFile({
