@@ -11,9 +11,8 @@ export class UploaderResolver {
   @Mutation(() => UploadedFile, { name: 'uploadFile' })
   async uploadFile(
     @Args({ name: 'file', type: () => GraphQLUpload }) file: FileUpload,
-    @Args({ name: `size`, type: () => Int }) size: number,
-  ): Promise<File> {
-    const uploadedFile = this.uploaderService.uploadFile(file, size);
+  ): Promise<File | undefined> {
+    const uploadedFile = this.uploaderService.uploadFile(file);
     return uploadedFile;
   }
 }
