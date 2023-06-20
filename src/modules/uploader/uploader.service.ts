@@ -17,26 +17,31 @@ export class UploaderService {
     console.log(databaseHost);
   }
 
-  async uploadFile(uploadFileInput: UploadFileInput, size: number) {
+  async uploadFile(uploadFileInput: UploadFileInput) {
     try {
-      const result = await this.S3Service.uploadFile(uploadFileInput, size);
-      const signedUrl = await this.S3Service.getSignedFileUrl(result.key);
+      const result = await this.S3Service.uploadImage(uploadFileInput);
 
-      if (result && signedUrl) {
-        const fileStorageInDB = {
-          fileName: uploadFileInput.filename,
-          fileUrl: signedUrl,
-          key: result.key,
-        };
-        const filestored = await this.repository.uploadFile({
-          data: fileStorageInDB,
-        });
-        return filestored;
+      if (result) {
+        const signedUrl = await this.S3Service.getSignedFileUrl(result.key);
+        if (signedUrl) {
+          const fileStorageInDB = {
+            fileName: uploadFileInput.filename,
+            fileUrl: signedUrl,
+            key: result.key,
+          };
+          const filestored = await this.repository.uploadFile({
+            data: fileStorageInDB,
+          });
+          return filestored;
+        }
       } else {
         throw new Error('File url not saved into db');
       }
     } catch (error) {
-      throw error;
+      if (error) {
+        console.log(error);
+        throw error;
+      }
     }
   }
 }
