@@ -1,5 +1,6 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { Category as CategoryDB } from '@prisma/client';
+import { Category as CategoryDB, File as FileDB } from '@prisma/client';
+import { UploadedFile } from '../uploader/model/files.model';
 
 @ObjectType({ description: 'Category model' })
 export class Category {
@@ -11,4 +12,7 @@ export class Category {
 
   @Field(() => String)
   description: CategoryDB[`description`];
+
+  @Field(() => UploadedFile)
+  file: [FileDB];
 }

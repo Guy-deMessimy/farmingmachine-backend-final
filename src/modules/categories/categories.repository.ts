@@ -16,6 +16,7 @@ export class CategoriesRepository {
   async getCategories(params: CategoryInput): Promise<Category[]> {
     const { limit, offset, cursor, where, orderBy } = params;
     return this.prisma.category.findMany({
+      include: { file: { select: { fileUrl: true } } },
       skip: limit,
       take: offset,
       cursor,
