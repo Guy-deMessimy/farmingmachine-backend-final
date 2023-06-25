@@ -158,6 +158,17 @@ en cas d'ajout et/ou modifications du shema le script ci-dessous est à jouer
 npm run migrate
 ```
 
+pour reset la db
+
+```sh
+npm run reset
+```
+pour seed la db
+
+```sh
+npm run seed
+```
+
 Prisma client permet a Nest JS l'accès et la modification des données en bdd
 
 ```sh
@@ -222,5 +233,5 @@ nest g module ${name}
 Defines the interface for input or/and output within our system
 
 ```sh
-nest g class ${name] 'user/dto/create-user.dto' --no-spec
+nest g class ${name} 'user/dto/create-user.dto' --no-spec
 ```
