@@ -1,7 +1,7 @@
 import { Query, Resolver } from '@nestjs/graphql';
 import { CategoriesService } from './categories.service';
 import { PubSub } from 'graphql-subscriptions';
-import { Category } from './categories.model';
+import { Category } from './model/categories.model';
 
 @Resolver()
 export class CategoriesResolver {

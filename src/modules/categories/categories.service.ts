@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CategoriesRepository } from './categories.repository';
+import { CategoriesRepository } from './repository/categories.repository';
 import { PubSub } from 'graphql-subscriptions';
 
 @Injectable()

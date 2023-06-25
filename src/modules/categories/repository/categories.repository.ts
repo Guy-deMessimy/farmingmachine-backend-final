@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma, Category } from '@prisma/client';
-import { PrismaService } from '../../prisma/prisma.service';
-import { CategoryInput } from './entities/category.entity';
+import { PrismaService } from '../../../prisma/prisma.service';
+import { CategoryInput } from '../dto/category.entity';
 // import { PostInput } from './entities/post.entity';
 
 @Injectable()

@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { PrismaModule } from 'src/prisma/prisma.module';
 import { PubSubModule } from '../pub-sub/pub-sub.module';
-import { CategoriesRepository } from './categories.repository';
+import { CategoriesRepository } from './repository/categories.repository';
 import { CategoriesService } from './categories.service';
 import { CategoriesResolver } from './categories.resolver';
 
