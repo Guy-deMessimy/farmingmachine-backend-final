@@ -12,11 +12,7 @@ import sharp from 'sharp';
 import { UploadFileInput } from 'src/modules/uploader/dto/uploaded-file-input';
 import { RatioEnum } from './enums/s3-enum';
 import { IMAGE_SIZE, MAX_WIDTH, QUALITY_ARRAY } from './constants/s3-constants';
-
-interface uploadedFile {
-  uploadedFileUrl: string;
-  key: string;
-}
+import { uploadedFile } from './model/upload-file-model';
 
 @Injectable()
 export class S3Service {
