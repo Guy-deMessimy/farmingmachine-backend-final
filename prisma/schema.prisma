@@ -49,7 +49,7 @@ model Category {
   description String? @db.LongText
   services    Service[] 
   file        File?   @relation(fields: [fileId], references: [id])
-  fileId      Int     @unique
+  fileId      Int?     @unique
 }
 
 model Service {
