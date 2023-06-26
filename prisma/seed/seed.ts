@@ -1,6 +1,8 @@
 import { PrismaClient } from '@prisma/client';
 import { parseArgs } from 'node:util';
 import { CATEGORY } from './category';
+import { v4 as uuid } from 'uuid';
+import { FILE } from './file';
 
 const prisma = new PrismaClient();
 
@@ -59,12 +61,35 @@ const main = async () => {
           },
         },
       });
+
+      const seedFile = async () => {
+        const uplodedFile = Promise.all(
+          FILE.map(
+            async (n) =>
+              await prisma.file.create({
+                data: {
+                  fileName: n.fileName,
+                  fileUrl: n.fileUrl,
+                  key: `${uuid()}-${n.fileName}`,
+                },
+              }),
+          ),
+        );
+        return uplodedFile;
+      };
+
+      await seedFile();
+
       const seedCategory = async () => {
         Promise.all(
-          CATEGORY.map((n) =>
-            prisma.category.create({
-              data: { title: n.title, description: n.description },
-            }),
+          CATEGORY.map(
+            async (n) =>
+              await prisma.category.create({
+                data: {
+                  title: n.title,
+                  description: n.description,
+                },
+              }),
           ),
         )
           .then(() =>
