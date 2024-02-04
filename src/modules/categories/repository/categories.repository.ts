@@ -19,8 +19,8 @@ export class CategoriesRepository {
       include: { file: { select: { fileUrl: true, key: true } } },
       skip: limit,
       take: offset,
-      cursor,
-      where,
+      // cursor,
+      // where,
       orderBy,
     });
   }
