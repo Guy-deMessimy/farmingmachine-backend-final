@@ -3,6 +3,7 @@ import { parseArgs } from 'node:util';
 import { CATEGORY } from './category';
 import { v4 as uuid } from 'uuid';
 import { FILE } from './file';
+import { SERVICE } from './service';
 
 const prisma = new PrismaClient();
 
@@ -101,6 +102,29 @@ const main = async () => {
       };
 
       seedCategory();
+
+      // const seedService = async () => {
+      //   Promise.all(
+      //     SERVICE.map(
+      //       async (n) =>
+      //         await prisma.service.create({
+      //           data: {
+      //             title: n.title,
+      //             description: n.description,
+      //             category: n.category,
+      //           },
+      //         }),
+      //     ),
+      //   )
+      //     .then(() =>
+      //       console.info('[SEED] Succussfully create category records'),
+      //     )
+      //     .catch((e) =>
+      //       console.error('[SEED] Failed to create category records', e),
+      //     );
+      // };
+
+      // seedService();
       console.log({ alice, bob });
       break;
 
