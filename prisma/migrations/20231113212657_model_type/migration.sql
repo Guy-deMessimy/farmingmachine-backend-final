@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE `Model` ADD COLUMN `typeId` INTEGER NULL;
+
+-- AddForeignKey
+ALTER TABLE `Model` ADD CONSTRAINT `Model_typeId_fkey` FOREIGN KEY (`typeId`) REFERENCES `Type`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;

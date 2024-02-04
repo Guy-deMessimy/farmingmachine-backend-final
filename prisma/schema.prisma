@@ -47,17 +47,18 @@ model Category {
   id          Int      @default(autoincrement()) @id
   title       String
   description String? @db.LongText
-  services    Service[] 
   file        File?   @relation(fields: [fileId], references: [id])
   fileId      Int?     @unique
+  services     Service[]
 }
 
 model Service {
-  id          Int      @default(autoincrement()) @id
+  id          Int       @default(autoincrement()) @id
   title       String
   description String?   @db.LongText
-  category    Category  @relation(fields: [categoryId], references: [id])
-  categoryId  Int       @unique
+  categories  Category?    @relation(fields: [categoryId], references: [id]) 
+  categoryId  Int?
+  types       Type[]
 }
 
 model File {
@@ -71,4 +72,28 @@ model File {
   @@index([fileName, key])
 }
 
+model Model {
+  id              Int     @default(autoincrement()) @id
+  modelName       String  
+  brandName       String
+  conception      String
+  engineKwPower   Int
+  engineCcPower   Int
+  MaxKmhSpeed     Int
+  PetrolLitreTank Int
+  TankLitre       Int?
+  WeightKg        Int
+  WorkingWidth    Int?
+  CopiesNumber    Int
+  types           Type?    @relation(fields: [typeId], references: [id]) 
+  typeId          Int?
+}
+
+model Type {
+    id          Int     @default(autoincrement()) @id
+    title       String
+    description String?   @db.LongText
+    services    Service[]
+    models      Model[]
+}
 
